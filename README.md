@@ -1,2 +1,2 @@
-# laiya_server
-来鸭信令服务器server
+# room
+运行 go run ./cmd/main.go
