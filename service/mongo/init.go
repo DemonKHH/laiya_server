@@ -49,5 +49,5 @@ func GetMongoClient() *mongo.Client {
 }
 
 func OpenCollection(client *mongo.Client, CollectionName string) *mongo.Collection {
-	return client.Database("laiya_server").Collection(CollectionName)
+	return client.Database("laiya").Collection(CollectionName)
 }

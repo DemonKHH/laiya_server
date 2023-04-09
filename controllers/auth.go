@@ -45,6 +45,7 @@ func Signup() gin.HandlerFunc {
 		var user modelUser.User
 
 		if err := c.ShouldBindJSON(&user); err != nil {
+			log.Printf("signup ShouldBindJSON error: %v", err)
 			c.JSON(http.StatusOK, response.FailMsg(
 				err.Error(),
 			))
@@ -54,6 +55,7 @@ func Signup() gin.HandlerFunc {
 
 		validationErr := validate.Struct(user)
 		if validationErr != nil {
+			log.Printf("signup validationErr error: %v", validationErr)
 			c.JSON(http.StatusOK, response.FailMsg(
 				validationErr.Error(),
 			))
@@ -113,10 +115,9 @@ func Login() gin.HandlerFunc {
 		var ctx, cancel = context.WithTimeout(context.Background(), 10*time.Second)
 		var user modelUser.User
 		var foundUser modelUser.User
-		// var user modelUser.LoginUser
-		// var foundUser modelUser.SignupUser
 
 		if err := c.ShouldBindJSON(&user); err != nil {
+			log.Printf("login ShouldBindJSON error: %v", err)
 			c.JSON(http.StatusOK, response.FailMsg(
 				err.Error(),
 			))
@@ -160,6 +161,7 @@ func Login() gin.HandlerFunc {
 			))
 			return
 		}
+		log.Printf("登录成功")
 		c.JSON(http.StatusOK, response.ResponseMsg{
 			Code: 0,
 			Msg:  "登录成功",
