@@ -8,10 +8,9 @@ import (
 )
 
 func Auth(r *gin.Engine) {
-	r.Use(middleware.Authenticate())
-	r.GET("/user/refreshToken", controllers.RefreshToken())
-	r.GET("/getUsers", controllers.GetUsers())
-	r.GET("/getUser", controllers.GetUser())
+	r.GET("/user/refreshToken", middleware.Authenticate(), controllers.RefreshToken())
+	r.GET("/getUsers", middleware.Authenticate(), controllers.GetUsers())
+	r.GET("/getUser", middleware.Authenticate(), controllers.GetUser())
 	// 需要鉴权的 api
 	// auth := r.Group("/auth")
 }
