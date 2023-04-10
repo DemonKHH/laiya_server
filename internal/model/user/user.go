@@ -13,6 +13,7 @@ type User struct {
 	Email        *string            `json:"email" validate:"email,required"`
 	PhoneNumber  *string            `json:"phoneNumber,omitempty"`
 	Avator       *string            `json:"avator,omitempty"`
+	Mac          *string            `json:"mac,omitempty"`
 	AccessToken  *string            `json:"accessToken"`
 	RefreshToken *string            `json:"refreshToken"`
 	CreatedAt    time.Time          `json:"createdAt"`

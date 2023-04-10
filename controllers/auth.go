@@ -91,6 +91,8 @@ func Signup() gin.HandlerFunc {
 		user.RefreshToken = &refreshToken
 		avator := util.GetRandomAvator()
 		user.Avator = &avator
+		mac := util.GenerateMac()
+		user.Mac = &mac
 
 		_, insertErr := userCollection.InsertOne(ctx, user)
 		if insertErr != nil {
