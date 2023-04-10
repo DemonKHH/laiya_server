@@ -17,5 +17,5 @@ func InitRoutes() {
 	router := gin.Default()
 	router.Use(middleware.Cors())
 	LoadRoutes(router)
-	router.Run(":8999")
+	router.Run(":8000")
 }
