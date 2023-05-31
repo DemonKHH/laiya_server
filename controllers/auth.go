@@ -13,7 +13,6 @@ import (
 
 	modelUser "laiya_server/internal/model/user"
 	response "laiya_server/pkg/common/response"
-	"laiya_server/pkg/common/util"
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
@@ -89,10 +88,9 @@ func Signup() gin.HandlerFunc {
 		accessToken, refreshToken, _ := helpers.GenerateAllToken(*user.Email, *user.Name, user.UserId)
 		user.AccessToken = &accessToken
 		user.RefreshToken = &refreshToken
-		avator := util.GetRandomAvator()
+		avator := ""
 		user.Avator = &avator
-		mac := util.GenerateMac()
-		user.Mac = &mac
+		user.Permissions = []string{}
 
 		_, insertErr := userCollection.InsertOne(ctx, user)
 		if insertErr != nil {

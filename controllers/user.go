@@ -9,7 +9,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -31,7 +30,7 @@ func GetUser() gin.HandlerFunc {
 		// c.JSON(http.StatusOK, user)
 		c.JSON(http.StatusOK, response.ResponseMsg{
 			Code: 0,
-			Msg:  "登录成功",
+			Msg:  "获取成功",
 			Data: user,
 		})
 	}
@@ -39,7 +38,7 @@ func GetUser() gin.HandlerFunc {
 func GetUsers() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var err error
-		var users []bson.M
+		var users []response.LoginResponseWithUser
 		users, err = serviceUser.GetUsers()
 		if err != nil {
 			// c.JSON(http.StatusOK, err.Error())
@@ -51,7 +50,7 @@ func GetUsers() gin.HandlerFunc {
 		// c.JSON(http.StatusOK, users)
 		c.JSON(http.StatusOK, response.ResponseMsg{
 			Code: 0,
-			Msg:  "登录成功",
+			Msg:  "成功获取",
 			Data: users,
 		})
 	}

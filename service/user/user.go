@@ -2,7 +2,7 @@ package serviceUser
 
 import (
 	"context"
-	modelUser "laiya_server/internal/model/user"
+	"laiya_server/pkg/common/response"
 	db "laiya_server/service/mongo"
 	"log"
 	"time"
@@ -13,8 +13,8 @@ import (
 
 var userCollection *mongo.Collection = db.OpenCollection(db.GetMongoClient(), "users")
 
-func GetUser(userId string) (modelUser.User, error) {
-	var user modelUser.User
+func GetUser(userId string) (response.LoginResponse, error) {
+	var user response.LoginResponse
 	var err error
 	var ctx, cancel = context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -23,13 +23,13 @@ func GetUser(userId string) (modelUser.User, error) {
 	return user, err
 }
 
-func GetUsers() ([]bson.M, error) {
+func GetUsers() ([]response.LoginResponseWithUser, error) {
+	var users []response.LoginResponseWithUser
 	var ctx, _ = context.WithTimeout(context.Background(), 10*time.Second)
 	cursor, err := userCollection.Find(ctx, bson.M{})
 	if err != nil {
 		log.Fatal(err)
 	}
-	var users []bson.M
 	if err = cursor.All(ctx, &users); err != nil {
 		log.Fatal(err)
 	}

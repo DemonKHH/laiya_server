@@ -13,7 +13,7 @@ func Cors() gin.HandlerFunc {
 		origin := c.Request.Header.Get("Origin") //请求头部
 		if origin != "" {
 			//接收客户端发送的origin （重要！）
-			c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+			c.Header("Access-Control-Allow-Origin", "*")
 			//服务器支持的所有跨域请求的方法
 			c.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE,UPDATE")
 			//允许跨域设置可以返回其他子段，可以自定义字段

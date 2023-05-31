@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-const dataBaseName = "laiya"
+const dataBaseName = "laiya_admin"
 
 func Insert(client *mongo.Client, collectionName string, document interface{}) error {
 	_, err := client.Database(dataBaseName).Collection(collectionName).InsertOne(context.TODO(), document)
