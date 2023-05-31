@@ -11,7 +11,6 @@ func LoadRoutes(r *gin.Engine) {
 	log.Printf("[router] load routes")
 	Auth(r)
 	User(r)
-	Log(r)
 }
 
 func InitRoutes() {
