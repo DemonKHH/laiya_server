@@ -9,6 +9,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var userCollection *mongo.Collection = db.OpenCollection(db.GetMongoClient(), "users")
@@ -34,4 +35,18 @@ func GetUsers() ([]response.LoginResponseWithUser, error) {
 		log.Fatal(err)
 	}
 	return users, err
+}
+
+func UpdatePermissions(userId string, permissions []string) (response.LoginResponseWithUser, error) {
+	var err error
+	var user response.LoginResponseWithUser
+	var ctx, cancel = context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	filter := bson.M{"userid": userId}
+	// 构造更新操作
+	update := bson.M{"$set": bson.M{"permissions": permissions}}
+	// 执行更新操作，并返回更新后的文档
+	options := options.FindOneAndUpdate().SetReturnDocument(options.After)
+	err = userCollection.FindOneAndUpdate(ctx, filter, update, options).Decode(&user)
+	return user, err
 }

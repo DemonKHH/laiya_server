@@ -55,3 +55,30 @@ func GetUsers() gin.HandlerFunc {
 		})
 	}
 }
+
+func UpdatePermissions() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var user response.LoginResponseWithUser
+		var userInfo struct {
+			UserId      string   `json:"userId" binding:"required"`
+			Permissions []string `json:"permissions" binding:"required"`
+		}
+		if err := c.BindJSON(&userInfo); err != nil {
+			c.JSON(http.StatusOK, response.FailMsg(
+				err.Error(),
+			))
+			return
+		}
+		user, err := serviceUser.UpdatePermissions(userInfo.UserId, userInfo.Permissions)
+		if err != nil {
+			c.JSON(http.StatusOK, response.FailMsg(
+				err.Error(),
+			))
+		}
+		c.JSON(http.StatusOK, response.ResponseMsg{
+			Code: 0,
+			Msg:  "权限更新成功",
+			Data: user,
+		})
+	}
+}
