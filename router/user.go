@@ -7,6 +7,6 @@ import (
 )
 
 func User(r *gin.Engine) {
-	r.POST("/signup", controllers.Signup())
-	r.POST("/login", controllers.Login())
+	r.POST("/api/signup", controllers.Signup())
+	r.POST("/api/login", controllers.Login())
 }
