@@ -10,7 +10,7 @@ type User struct {
 	ID           primitive.ObjectID `bson:"_id"`
 	Name         *string            `json:"name" validate:"required,min=2,max=100"`
 	Password     *string            `json:"password" validate:"required,min=2,max=100"`
-	Email        *string            `json:"email" validate:"email,required"`
+	Email        *string            `json:"email" validate:"required"`
 	PhoneNumber  *string            `json:"phoneNumber,omitempty"`
 	Avator       *string            `json:"avator,omitempty"`
 	AccessToken  *string            `json:"accessToken"`
