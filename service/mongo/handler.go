@@ -4,12 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"log"
+	"os"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-const dataBaseName = "laiya_admin"
+var dataBaseName = os.Getenv("MONGODB_DATABASE")
 
 func Insert(client *mongo.Client, collectionName string, document interface{}) error {
 	_, err := client.Database(dataBaseName).Collection(collectionName).InsertOne(context.TODO(), document)
